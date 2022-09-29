@@ -9,6 +9,7 @@ import {
     doc,
 } from "firebase/firestore";
 
+
 function Crud() {
     const [newName, setNewName] = useState("");
     const [newAge, setNewAge] = useState(0);

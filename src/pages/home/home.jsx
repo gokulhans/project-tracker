@@ -13,6 +13,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
+import { query, orderBy, onSnapshot } from "firebase/firestore"
 
 function Home() {
 
@@ -24,10 +25,19 @@ function Home() {
     setGoals(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   }
 
-  useEffect(() => {
-    getGoals();
-  }, []);
+  // useEffect(() => {
+  //   getGoals();
+  // }, []);
 
+  useEffect(() => {
+    const q = query(collection(db, 'goals'))
+    onSnapshot(q, (querySnapshot) => {
+      setGoals(querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        data: doc.data()
+      })))
+    })
+  }, [])
 
   return (
     <>
