@@ -3,8 +3,32 @@ import Card from '../../components/card/card'
 import Form from '../../components/form/form'
 import Progress from '../../components/progress/progress'
 import Search from '../../components/search/search'
+import { useState, useEffect } from "react";
+import { db } from "../../firebase";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 
-function home() {
+function Home() {
+
+  const [goals, setGoals] = useState([]);
+  const goalsCollection = collection(db, "goals");
+
+  const getGoals = async () => {
+    const data = await getDocs(goalsCollection);
+    setGoals(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  }
+
+  useEffect(() => {
+    getGoals();
+  }, []);
+
+
   return (
     <>
       <div className="mx-4 sm:mx-16 mb-12">
@@ -12,10 +36,15 @@ function home() {
       </div>
       <Progress />
       <div className="grid justify-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:mx-12">
-        <Card />
+
+        {goals.map((goal) => {
+          return (
+            <Card />
+          )
+        })}
       </div>
     </>
   )
 }
 
-export default home
+export default Home;
