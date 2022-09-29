@@ -16,7 +16,7 @@ function Projecttablerow() {
             </td>
             <td className="py-4 px-6">
                 <a href="#" type="button" data-modal-toggle="editUserModal">
-                <button type="button" class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><b>Edit</b></button>
+                <button type="button" class="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-1.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"><b>Edit</b></button>
                 </a>
             </td>
         </tr>
