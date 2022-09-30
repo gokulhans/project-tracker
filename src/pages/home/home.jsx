@@ -17,17 +17,24 @@ import { query, orderBy, onSnapshot } from "firebase/firestore"
 
 function Home() {
 
+  const [data, setData] = useState('');
+  
+  const parentToChild = () => {
+    setData("This is data from Parent Component to the Child Component.");
+  }
+
   const [goals, setGoals] = useState([]);
   const goalsCollection = collection(db, "goals");
 
-  const getGoals = async () => {
-    const data = await getDocs(goalsCollection);
-    setGoals(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  }
 
-  // useEffect(() => {
-  //   getGoals();
-  // }, []);
+
+  useEffect(() => {
+    const getGoals = async () => {
+      const data = await getDocs(goalsCollection);
+      setGoals(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    }
+    getGoals();
+  }, []);
 
   useEffect(() => {
     const q = query(collection(db, 'goals'))
@@ -47,9 +54,9 @@ function Home() {
       <Progress />
       <div className="grid justify-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:mx-12">
 
-        {goals.map((goal) => {
+        {goals.map((goal,index) => {
           return (
-            <Card />
+            <Card key={index} goal={goal} />
           )
         })}
       </div>
